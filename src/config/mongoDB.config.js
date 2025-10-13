@@ -11,7 +11,7 @@ async function connectMongoDB(){
     try{
 
         await mongoose.connect(ENVIRONMENT.MONGO_DB_CONNECTION_STRING, {
-            timeoutMS: 10000 //10s
+            timeoutMS: 60000 //60s
         })
 
         console.log('La conexion con MongoDB fue exitosa')
