@@ -65,6 +65,21 @@ app.get('/workspace/:workspace_id', async (request, response) => {
     })
 })
 
+
+app.get('/api/status',(request,esponse)=>{
+    response.send({
+        ok: true,
+        message:'esto esta funcionando'
+    })
+})
+/*
+app.get('/api/ping',(request,esponse)=>{
+    response.send({
+        ok: true,
+        message:'pong'
+    })
+})*/
+
 app.use('/api/workspace', workspace_router)
 app.use('/api/auth', auth_router)
 
