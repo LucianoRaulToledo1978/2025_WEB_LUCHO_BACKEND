@@ -5,7 +5,7 @@ Este middleware debera
 - Validacion por role
 */
 
-import MemberWorkspaceRepository from "../repositories/memberWorkspace.repository.js"
+import MemberWorkspaceRepository from "../repositories/memeberWorkspace.repository.js"
 import WorkspacesRepository from "../repositories/workspace.repository.js"
 import { ServerError } from "../utils/customError.utils.js"
 

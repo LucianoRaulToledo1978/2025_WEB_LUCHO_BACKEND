@@ -7,7 +7,7 @@ import { ServerError } from "../utils/customError.utils.js"
 import jwt from "jsonwebtoken"
 
 
-import { ServerError } from "../utils/customError.utils.js"
+
 
 class AuthService{
     static async register(username, password, email){
