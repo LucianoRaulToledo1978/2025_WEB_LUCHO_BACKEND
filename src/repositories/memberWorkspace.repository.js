@@ -1,6 +1,6 @@
 import MemberWorkspace from "../models/MemberWorkspace.model.js";
 import { ServerError } from "../utils/customError.utils.js";
-import { WORKSPACE_TABLE } from "./workspace.repository.js";
+
 
 
 class MemberWorkspaceRepository {
