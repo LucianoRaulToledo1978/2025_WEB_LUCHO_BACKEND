@@ -1,5 +1,7 @@
 import MemberWorkspace from "../models/MemberWorkspace.model.js";
 import { ServerError } from "../utils/customError.utils.js";
+import { WORKSPACE_TABLE } from "./workspace.repository.js";
+
 
 class MemberWorkspaceRepository {
     static async getAllWorkspacesByUserId (user_id){
@@ -18,7 +20,7 @@ class MemberWorkspaceRepository {
         const member_workspace = await MemberWorkspace.findOne({user: user_id, workspace: workspace_id})
         return member_workspace
     }
-    static async create (user_id, workspace_id, role = 'member'){
+    static async create (user_id, workspace_id, role = 'user'/*'member'*/){
         const member = await MemberWorkspaceRepository.getMemberWorkspaceByUserIdAndWorkspaceId(user_id, workspace_id)
         if(member){
             throw new ServerError(400, 'El usuario ya es miembro del workspace')

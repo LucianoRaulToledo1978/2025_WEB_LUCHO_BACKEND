@@ -25,6 +25,7 @@ connectMongoDB()
 const app = express()
 app.use(cors()) 
 
+
 //Configurar a mi app de express para que use handlebars como motor de plantillas
 app.engine('handlebars', handlebars.engine({
     runtimeOptions: { 

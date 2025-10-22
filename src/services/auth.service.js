@@ -6,6 +6,9 @@ import ENVIRONMENT from "../config/environment.config.js"
 import { ServerError } from "../utils/customError.utils.js"
 import jwt from "jsonwebtoken"
 
+
+import { ServerError } from "../utils/customError.utils.js"
+
 class AuthService{
     static async register(username, password, email){
         console.log(username, password, email)
@@ -28,8 +31,8 @@ class AuthService{
          )
 
         await transporter.sendMail({
-            from: 'paginasweblucho@gmail.com',
-            to: 'paginasweblucho@gmail.com',
+            from: ENVIRONMENT.GMAIL_USERNAME, /*'paginasweblucho@gmail.com',*/
+            to: email, /*'paginasweblucho@gmail.com',*/
             subject: 'Verificacion de correo electronico',
             html: `
             <h1>Hola desde node.js</h1>
@@ -95,7 +98,8 @@ class AuthService{
                 id: user._id,
                 name: user.name,
                 email: user.email,
-                created_at: user.created_at
+                created_at: user.created_at,
+                role:'user'
             },
             ENVIRONMENT.JWT_SECRET_KEY,
             {
