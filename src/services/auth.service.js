@@ -90,6 +90,8 @@ class AuthService{
 
         /* Permite saber si cierto valor es igual a otro cierto valor encriptado */
         const is_same_password = await bcrypt.compare(password, user.password)
+        //console.log('Password ingresada:', password)
+        //console.log('Password guardada:', user.password)
         if(!is_same_password){
             throw new ServerError(401, 'Contraseña incorrecta')
         }

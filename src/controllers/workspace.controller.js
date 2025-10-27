@@ -7,6 +7,7 @@ import ENVIRONMENT from "../config/environment.config.js"
 import transporter from "../config/mailer.config.js"
 import UserRepository from "../repositories/user.repository.js"
 import jwt from 'jsonwebtoken'
+import MemberWorkspaceRepository from "../repositories/memberWorkspace.repository.js"
 
 
 class WorkspaceController {
@@ -122,12 +123,12 @@ class WorkspaceController {
                     "el campo 'name' debe ser un string de menos de 30 caracteres"
                 )
             }
-            else if (!url_img || typeof (url_img) !== 'string') {
+            /*else if (!url_img || typeof (url_img) !== 'string') {
                 throw new ServerError(
                     400,
                     "el campo 'url_img' debe ser un string de menos de 30 caracteres"
                 )
-            }
+            }*/
             else {
                 //Creamos el workspace con el repository
                 const workspace_id_created = await WorkspacesRepository.createWorkspace(name, url_img)
@@ -225,7 +226,7 @@ class WorkspaceController {
                     subject: 'Invitacion al workspace',
                     html: `<h1>El usuario: ${user.email} te ha enviado una invitación
                             al workspace ${workspace.nombre}<h1/>
-                <a href='${ENVIRONMENT.URL_API_BACKEND}/api/members/confirm-invitation/${invite_token}'>Click para aceptar<a/>`
+                           <a href='${ENVIRONMENT.URL_API_BACKEND}/api/members/confirm-invitation/${invite_token}'>Click para aceptar<a/>`
                 }
             )
 

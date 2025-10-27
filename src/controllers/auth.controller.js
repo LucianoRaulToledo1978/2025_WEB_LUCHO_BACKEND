@@ -118,12 +118,9 @@ static async login(request, response) {
             const {verification_token} = request.params
             await AuthService.verifyEmail(verification_token)
 
-            return response.json({
-                ok: true, 
-                status: 200,
-                message: 'Usuario validado'
-            })
-        } 
+            return response.redirect(ENVIRONMENT.URL_FRONTEND + '/login')
+        }
+         
         catch (error) {
             console.log(error)
             if (error.status) {
