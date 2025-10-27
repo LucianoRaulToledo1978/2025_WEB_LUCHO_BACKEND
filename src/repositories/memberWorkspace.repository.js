@@ -15,17 +15,26 @@ class MemberWorkspaceRepository {
 
         console.log(workspaces_que_soy_miembro)
     }
+    
 
     static async getMemberWorkspaceByUserIdAndWorkspaceId(user_id, workspace_id){
+        
+
         const member_workspace = await MemberWorkspace.findOne({user: user_id, workspace: workspace_id})
+
+        
+
         return member_workspace
+
+        
     }
+    
     static async create (user_id, workspace_id, role = 'user'/*'member'*/){
         const member = await MemberWorkspaceRepository.getMemberWorkspaceByUserIdAndWorkspaceId(user_id, workspace_id)
         if(member){
             throw new ServerError(400, 'El usuario ya es miembro del workspace')
         }
-        await MemberWorkspace.insertOne({user: user_id, workspace: workspace_id, role: role})
+        await MemberWorkspace.create({user: user_id, workspace: workspace_id, role })
     }
 }
 

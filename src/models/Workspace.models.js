@@ -22,6 +22,11 @@ const WorkspaceSchema = new mongoose.Schema(
         active:{
             type:Boolean,
             default: true
+        },
+        userid: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
         }
 
 

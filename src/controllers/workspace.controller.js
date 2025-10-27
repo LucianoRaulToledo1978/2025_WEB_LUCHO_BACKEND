@@ -131,7 +131,7 @@ class WorkspaceController {
             }*/
             else {
                 //Creamos el workspace con el repository
-                const workspace_id_created = await WorkspacesRepository.createWorkspace(name, url_img)
+                const workspace_id_created = await WorkspacesRepository.createWorkspace(name, url_img,request.user.id)
                 if (!workspace_id_created) {
                     throw new ServerError(
                         500,

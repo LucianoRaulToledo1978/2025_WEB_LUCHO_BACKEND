@@ -3,13 +3,15 @@ import Workspaces from "../models/Workspace.models.js"
 class WorkspacesRepository {
     static async createWorkspace(
         name, 
-        url_image
+        url_image,
+        user_id
     ){
-        await Workspaces.insertOne({
+        const workspace = await Workspaces.create({
             name: name,
-            url_image: url_image
+            url_image: url_image,
+            userid: user_id
         })
-        return true
+        return workspace._id 
         
     }
     static async getAll (){
@@ -40,6 +42,13 @@ class WorkspacesRepository {
         return workspace_updated
     }
 
+    static async getAllWorkspacesByUserId(userId) {
+    // Suponiendo que el modelo Workspaces tiene un campo userId
+    const workspaces = await Workspaces.find({ userId: userId })
+    return workspaces
+}
+
+    
 }
 
 export default WorkspacesRepository
