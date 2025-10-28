@@ -9,7 +9,7 @@ class WorkspacesRepository {
         const workspace = await Workspaces.create({
             name: name,
             url_image: url_image,
-            userid: user_id
+            userId: user_id
         })
         return workspace._id 
         
