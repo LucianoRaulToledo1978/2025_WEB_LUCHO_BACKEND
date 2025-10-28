@@ -23,7 +23,7 @@ const WorkspaceSchema = new mongoose.Schema(
             type:Boolean,
             default: true
         },
-        userid: {
+        userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
