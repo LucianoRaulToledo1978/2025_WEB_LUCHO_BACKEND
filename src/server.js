@@ -27,11 +27,9 @@ connectMongoDB()
 
 const app = express()
 app.use(cors({
-  origin: "*",
-  credentials: true
+    origin: "https://2025-web-lucho-front.vercel.app",
+    credentials: true
 }));
-
-
 
 
 //Configurar a mi app de express para que use handlebars como motor de plantillas
