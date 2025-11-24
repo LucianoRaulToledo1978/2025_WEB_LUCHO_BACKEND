@@ -70,12 +70,13 @@ app.get('/workspace/:workspace_id', async (request, response) => {
 })
 
 
-app.get('/api/status',(request,esponse)=>{
+app.get('/api/status',(request, response)=>{    
     response.send({
         ok: true,
         message:'esto esta funcionando'
     })
 })
+
 /*
 app.get('/api/ping',(request,esponse)=>{
     response.send({
@@ -109,12 +110,12 @@ const randomMiddleware = (min_numero_random) => {
  */
 //Personalizar el randomMiddleware para que podamos configurar el numero minimo de suerte (0.5 por defecto)
 
-app.get('/test',  randomMiddleware(0.9), (request, response) => {
-    console.log(request.tieneSuerte)
-    response.send({
-        ok: true
-    })
-})
+// app.get('/test-render',  randomMiddleware(0.9), (request, response) => {
+//     console.log(request.tieneSuerte)
+//     response.send({
+//         ok: true
+//     })
+// })
 
 app.get('/ruta-protegida', authMiddleware, (request, response) => {
     console.log(request.user)
@@ -129,12 +130,13 @@ app.get('/ruta-protegida', authMiddleware, (request, response) => {
 
 
 
-app.listen(
-    8080, 
-    () => {
-        console.log("Esto esta funcionado")
-    }
-)
+const PORT = process.env.PORT || 8080
+
+app.listen(PORT, () => {
+    console.log("Servidor escuchando en puerto " + PORT)
+})
+
+
 
  /*MemberWorkspaceRepository.create(
 
