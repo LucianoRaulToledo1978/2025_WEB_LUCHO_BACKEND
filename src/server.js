@@ -19,6 +19,9 @@ import authMiddleware from "./middleware/auth.middleware.js";
 import MemberWorkspaceRepository from "./repositories/memberWorkspace.repository.js";
 import member_router from "./routes/member.router.js";
 
+import chat_router from "./routes/chat.router.js";
+
+
 
 connectMongoDB()
 
@@ -84,6 +87,8 @@ app.get('/api/ping',(request,esponse)=>{
 app.use('/api/workspace', workspace_router)
 app.use('/api/auth', auth_router)
 app.use('/api/member', member_router)
+app.use("/api/chat", chat_router);
+
 
 
 //Constructor de middlewares
