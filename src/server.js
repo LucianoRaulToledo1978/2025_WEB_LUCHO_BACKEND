@@ -26,7 +26,12 @@ import chat_router from "./routes/chat.router.js";
 connectMongoDB()
 
 const app = express()
-app.use(cors()) 
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
 
 
 //Configurar a mi app de express para que use handlebars como motor de plantillas
