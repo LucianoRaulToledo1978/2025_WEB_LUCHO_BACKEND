@@ -6,48 +6,29 @@ import auth_router from "./auth.router.js";
 import member_router from "./member.router.js";
 import chat_router from "./chat.router.js";
 
-import WorkspacesRepository from "./workspace.repository.js";
-import UserRepository from "./user.repository.js";
-import MemberWorkspaceRepository from "./memberWorkspace.repository.js";
-
-import authMiddleware from "./auth.middleware.js";
-
 import express from "express";
 import cors from "cors";
 import handlebars from "express-handlebars";
-
-
-
 
 connectMongoDB();
 
 const app = express();
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
-  
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-
-  next();
-});
-
+// --- CORS CORRECTO ---
 app.use(cors({
-    origin: ["http://localhost:5173", "https://tu-frontend.vercel.app"],
+    origin: [
+        "http://localhost:5173",
+        "https://tu-frontend.vercel.app",
+        "https://two025-web-lucho-frontend.vercel.app"  // agregá frontend real acá
+    ],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
 }));
 
 app.use(express.json());
 
-app.use("/api/auth", authRouter);
-
-app.listen(3000, () => {
-    console.log("Servidor funcionando en puerto 3000");
-});
-
+// --- HANDLEBARS ---
 app.engine('handlebars', handlebars.engine({
   runtimeOptions: { 
     allowProtoPropertiesByDefault: true,
@@ -56,23 +37,19 @@ app.engine('handlebars', handlebars.engine({
 }));
 
 app.set('view engine', 'handlebars');
+app.set('views', './');
 
-// ❗ VIEWS CORREGIDO — estaban en una carpeta que no existe
-app.set('views', './');  
-
-app.use(express.json());
-
+// --- ENDPOINT DE PRUEBA ---
 app.get('/api/status', (req, res) => {
-  res.send({
-    ok: true,
-    message: 'esto esta funcionando'
-  });
+  res.send({ ok: true, message: 'esto esta funcionando' });
 });
 
-app.use('/api/workspace', workspace_router);
+// --- RUTAS ---
 app.use('/api/auth', auth_router);
+app.use('/api/workspace', workspace_router);
 app.use('/api/member', member_router);
 app.use('/api/chat', chat_router);
 
+// --- UN SOLO app.listen ---
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log("Server on port " + PORT));
