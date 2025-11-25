@@ -98,7 +98,7 @@ class AuthService{
         const authorization_token = jwt.sign(
             {
                 id: user._id,
-                name: user.name,
+                name: user.username,
                 email: user.email,
                 created_at: user.created_at,
                 role:'user'

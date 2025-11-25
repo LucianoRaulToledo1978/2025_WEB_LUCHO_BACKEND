@@ -68,5 +68,5 @@ app.use('/api/auth', auth_router);
 app.use('/api/member', member_router);
 app.use('/api/chat', chat_router);
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log("Server on port " + PORT));
