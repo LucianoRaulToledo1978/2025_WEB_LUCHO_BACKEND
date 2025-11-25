@@ -27,8 +27,10 @@ connectMongoDB()
 
 const app = express()
 app.use(cors({
-    origin: "https://2025-web-lucho-front.vercel.app",
-    credentials: true
+    origin: ["https://2025-web-lucho-front.vercel.app"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 
