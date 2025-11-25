@@ -1,38 +1,35 @@
+import ENVIRONMENT from "./environment.config.js";
 
-import ENVIRONMENT from "./config/environment.config.js";
-import connectMongoDB from "./config/mongoDB.config.js";
-import workspace_router from "./routes/workspace.route.js";
-import handlebars from 'express-handlebars'
-import auth_router from "./routes/auth.router.js";
-import jwt from 'jsonwebtoken'
+import connectMongoDB from "./mongoDB.config.js";
 
+import workspace_router from "./workspace.route.js";   // CORREGIDO
+import auth_router from "./auth.router.js";             // CORREGIDO
+import jwt from 'jsonwebtoken';
 
-import express from 'express'
-import WorkspacesRepository from "./repositories/workspace.repository.js";
-import UserRepository from "./repositories/user.repository.js";
+import express from 'express';
+import WorkspacesRepository from "./workspace.repository.js";    // CORREGIDO
+import UserRepository from "./user.repository.js";               // CORREGIDO
 
 import cors from 'cors';
 
-import authMiddleware from "./middleware/auth.middleware.js";
+import authMiddleware from "./auth.middleware.js";               // CORREGIDO
 
+import MemberWorkspaceRepository from "./memberWorkspace.repository.js"; // CORREGIDO
+import member_router from "./member.router.js";                  // CORREGIDO
 
-import MemberWorkspaceRepository from "./repositories/memberWorkspace.repository.js";
-import member_router from "./routes/member.router.js";
+import chat_router from "./chat.router.js";                      // CORREGIDO
 
-import chat_router from "./routes/chat.router.js";
+import handlebars from "express-handlebars";
 
+connectMongoDB();
 
-
-connectMongoDB()
-
-const app = express()
+const app = express();
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");        // Permitir todo dominio para pruebas
+  res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
   
-  // Respuesta inmediata a preflight
   if (req.method === "OPTIONS") {
     return res.sendStatus(200);
   }
@@ -47,129 +44,31 @@ app.use(cors({
   credentials: false
 }));
 
-
-app.use(cors({
-    origin: ["https://2025-web-lucho-front.vercel.app"],
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"]
+app.engine('handlebars', handlebars.engine({
+  runtimeOptions: { 
+    allowProtoPropertiesByDefault: true,
+    allowProtoMethodsByDefault: true
+  }
 }));
 
-
-//Configurar a mi app de express para que use handlebars como motor de plantillas
-app.engine('handlebars', handlebars.engine({
-    runtimeOptions: { 
-        allowProtoPropertiesByDefault: true,
-        allowProtoMethodsByDefault: true
-    }
-}))
-
-/* Delegamos a handlebars como motor de vistas (plantillas) */
 app.set('view engine', 'handlebars');
 
-/* Marcamos la carpeta donde estaran las plantillas */
-app.set('views', './src/views');
+// ❗ VIEWS CORREGIDO — estaban en una carpeta que no existe
+app.set('views', './');  
 
-app.use(express.json())
+app.use(express.json());
 
+app.get('/api/status', (req, res) => {
+  res.send({
+    ok: true,
+    message: 'esto esta funcionando'
+  });
+});
 
-app.get('/test', async (request, response) =>{
-    let edad = 50
-    const workspaces = await WorkspacesRepository.getAll()
-    //Respondo con la plantilla home.handlebars 
-    response.render(
-        'home', 
-        {
-            name: 'pepe',
-            is_admin: false,
-            es_mayor: edad >= 18,
-            workspaces: workspaces
-        }
-    )
-})
-
-app.get('/workspace/:workspace_id', async (request, response) => {
-    const {workspace_id} = request.params
-    const workspace_detail = await WorkspacesRepository.getById(workspace_id)
-    response.render('workspace-detail', {
-        workspace: workspace_detail
-    })
-})
-
-
-app.get('/api/status',(request, response)=>{    
-    response.send({
-        ok: true,
-        message:'esto esta funcionando'
-    })
-})
-
-/*
-app.get('/api/ping',(request,esponse)=>{
-    response.send({
-        ok: true,
-        message:'pong'
-    })
-})*/
-
-app.use('/api/workspace', workspace_router)
-app.use('/api/auth', auth_router)
-app.use('/api/member', member_router)
-app.use("/api/chat", chat_router);
-
-
-
-//Constructor de middlewares
-const randomMiddleware = (min_numero_random) => {
-    return (request, response, next) =>{
-        const numero_random = Math.random()
-        if(numero_random < min_numero_random){
-            response.send({message: 'Tienes mala suerte'})
-        }
-        else{
-            request.tieneSuerte = true
-            next()
-        }
-    }
-}
-
-/* 
- */
-//Personalizar el randomMiddleware para que podamos configurar el numero minimo de suerte (0.5 por defecto)
-
-// app.get('/test-render',  randomMiddleware(0.9), (request, response) => {
-//     console.log(request.tieneSuerte)
-//     response.send({
-//         ok: true
-//     })
-// })
-
-app.get('/ruta-protegida', authMiddleware, (request, response) => {
-    console.log(request.user)
-    response.send({
-        ok: true
-    })
-})
-
-
-
-
-
-
+app.use('/api/workspace', workspace_router);
+app.use('/api/auth', auth_router);
+app.use('/api/member', member_router);
+app.use('/api/chat', chat_router);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log("Server on port " + PORT));
-
-
-
-
- /*MemberWorkspaceRepository.create(
-
-/*'68ea9e70eac7ab3dcb36565f'.
-'68e946b45f6b056eb72b219b' ,
-'68cde97552d83568e2ecb090'
-    
-)*/
-
-
-//MemberWorkspaceRepository.getAllWorkspacesByUserId('68ea9e70eac7ab3dcb36565f')   
