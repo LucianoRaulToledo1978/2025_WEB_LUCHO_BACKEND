@@ -36,11 +36,17 @@ app.use((req, res, next) => {
 });
 
 app.use(cors({
-  origin: "*",
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"],
-  credentials: false
+    origin: ["http://localhost:5173", "https://tu-frontend.vercel.app"],
+    credentials: true
 }));
+
+app.use(express.json());
+
+app.use("/api/auth", authRouter);
+
+app.listen(3000, () => {
+    console.log("Servidor funcionando en puerto 3000");
+});
 
 app.engine('handlebars', handlebars.engine({
   runtimeOptions: { 
