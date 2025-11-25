@@ -123,6 +123,7 @@ static async login(request, response) {
         }
          
         catch (error) {
+            console.error("ERROR EN LOGIN:", error);
             console.log(error)
             if (error.status) {
                 return response.status(error.status).json(
@@ -140,10 +141,12 @@ static async login(request, response) {
                         status: 500,
                         message: 'Error interno del servidor'
                     }
+                  
                 )
             }
         }
     }
+    
 }
 
 export default AuthController   
