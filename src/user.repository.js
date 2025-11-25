@@ -1,4 +1,5 @@
-import Users from "../models/User.model.js";
+import User from "./User.model.js";
+
 /*import pool from "../config/mysql.config.js";*/
 
 

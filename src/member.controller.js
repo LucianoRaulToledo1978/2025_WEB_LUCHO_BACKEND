@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
-import ENVIRONMENT from '../config/environment.config.js'
-import { ServerError } from '../utils/customError.utils.js'
-import MemberWorkspaceRepository from '../repositories/memberWorkspace.repository.js'
+import ENVIRONMENT from './environment.config.js'
+import { ServerError } from './customError.utils.js'
+import MemberWorkspaceRepository from './memberWorkspace.repository.js'
 
 class MemberController {
     static async confirmInvitation(request, response) {

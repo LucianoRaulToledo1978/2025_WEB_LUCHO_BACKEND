@@ -1,9 +1,9 @@
-import UserRepository from "../repositories/user.repository.js"
+import UserRepository from "./user.repository.js"
 
 import bcrypt from 'bcrypt'
-import transporter from "../config/mailer.config.js"
-import ENVIRONMENT from "../config/environment.config.js"
-import { ServerError } from "../utils/customError.utils.js"
+import transporter from "./mailer.config.js"
+import ENVIRONMENT from "./environment.config.js"
+import { ServerError } from "./customError.utils.js"
 import jwt from "jsonwebtoken"
 
 

@@ -1,4 +1,4 @@
-import MessageRepository from "../repositories/message.repository.js";
+import MessageRepository from "./message.repository.js";
 
 class ChatController {
 

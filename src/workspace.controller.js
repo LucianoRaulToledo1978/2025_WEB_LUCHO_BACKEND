@@ -1,13 +1,13 @@
 //Las funciones que se encargaran de manejar la consulta y la respuesta
 
-import WorkspacesRepository from "../repositories/workspace.repository.js"
-import { ServerError } from "../utils/customError.utils.js"
-import { validarId } from "../utils/validations.utils.js"
-import ENVIRONMENT from "../config/environment.config.js"
-import transporter from "../config/mailer.config.js"
-import UserRepository from "../repositories/user.repository.js"
+import WorkspacesRepository from "./workspace.repository.js"
+import { ServerError } from "./customError.utils.js"
+import { validarId } from "./validations.utils.js"
+import ENVIRONMENT from "./environment.config.js"
+import transporter from "./mailer.config.js"
+import UserRepository from "./user.repository.js"
 import jwt from 'jsonwebtoken'
-import MemberWorkspaceRepository from "../repositories/memberWorkspace.repository.js"
+import MemberWorkspaceRepository from "./memberWorkspace.repository.js"
 
 
 class WorkspaceController {

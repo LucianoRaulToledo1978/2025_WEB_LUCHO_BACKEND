@@ -1,4 +1,5 @@
-import Workspaces from "../models/Workspace.models.js"
+import Workspace from "./Workspace.models.js";
+
 
 class WorkspacesRepository {
     static async createWorkspace(

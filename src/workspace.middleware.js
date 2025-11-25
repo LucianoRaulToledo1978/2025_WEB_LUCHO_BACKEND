@@ -5,9 +5,9 @@ Este middleware debera
 - Validacion por role
 */
 
-import MemberWorkspaceRepository from "../repositories/memberWorkspace.repository.js"
-import WorkspacesRepository from "../repositories/workspace.repository.js"
-import { ServerError } from "../utils/customError.utils.js"
+import MemberWorkspaceRepository from "./memberWorkspace.repository.js"
+import WorkspacesRepository from "./workspace.repository.js"
+import { ServerError } from "./customError.utils.js"
 
 function workspaceMiddleware(valid_member_roles = []) {
     return async function (request, response, next) {
