@@ -11,7 +11,7 @@ import express from 'express'
 import WorkspacesRepository from "./repositories/workspace.repository.js";
 import UserRepository from "./repositories/user.repository.js";
 
-import cors from 'cors'
+import cors from 'cors';
 
 import authMiddleware from "./middleware/auth.middleware.js";
 
@@ -26,6 +26,28 @@ import chat_router from "./routes/chat.router.js";
 connectMongoDB()
 
 const app = express()
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");        // Permitir todo dominio para pruebas
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
+  
+  // Respuesta inmediata a preflight
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+
+  next();
+});
+
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"],
+  credentials: false
+}));
+
+
 app.use(cors({
     origin: ["https://2025-web-lucho-front.vercel.app"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
