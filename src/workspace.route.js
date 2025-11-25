@@ -1,10 +1,5 @@
-import express from 'express'
-import WorkspacesRepository from '../repositories/workspace.repository.js'
-import { validarId } from '../utils/validations.utils.js'
-import { ServerError } from '../utils/customError.utils.js'
-import WorkspaceController from '../controllers/workspace.controller.js'
-import authMiddleware, { authByRoleMiddleware } from '../middleware/auth.middleware.js'
-import workspaceMiddleware from '../middleware/workspace.middleware.js'
+import WorkspacesRepository from "./workspace.repository.js";
+
 //Manejar consultas referidas a workspace
 
 const workspace_router = express.Router()

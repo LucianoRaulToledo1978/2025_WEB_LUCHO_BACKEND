@@ -1,7 +1,9 @@
-import express from 'express'
-import MemberController from '../controllers/member.controller.js'
-const member_router = express.Router()
+import express from "express";
+import MemberController from "./member.controller.js";
 
-member_router.get('/confirm-invitation/:token', MemberController.confirmInvitation)
+const router = express.Router();
 
-export default member_router
+router.post("/", MemberController.create);
+router.get("/:workspace_id", MemberController.getMembers);
+
+export default router;

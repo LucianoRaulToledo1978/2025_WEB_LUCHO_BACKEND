@@ -1,25 +1,17 @@
 import ENVIRONMENT from "./environment.config.js";
-
 import connectMongoDB from "./mongoDB.config.js";
 
-import workspace_router from "../workspace.route.js";   // CORREGIDO
-import auth_router from "./auth.router.js";             // CORREGIDO
-import jwt from 'jsonwebtoken';
+import workspace_router from "./workspace.route.js";
+import auth_router from "./auth.router.js";
+import member_router from "./member.router.js";
+import chat_router from "./chat.router.js";
 
-import express from 'express';
-import WorkspacesRepository from "../workspace.repository.js";    // CORREGIDO
-import UserRepository from "./user.repository.js";               // CORREGIDO
+import WorkspacesRepository from "./workspace.repository.js";
+import UserRepository from "./user.repository.js";
+import MemberWorkspaceRepository from "./memberWorkspace.repository.js";
 
-import cors from 'cors';
+import authMiddleware from "./auth.middleware.js";
 
-import authMiddleware from "./auth.middleware.js";               // CORREGIDO
-
-import MemberWorkspaceRepository from "./memberWorkspace.repository.js"; // CORREGIDO
-import member_router from "./member.router.js";                  // CORREGIDO
-
-import chat_router from "./chat.router.js";                      // CORREGIDO
-
-import handlebars from "express-handlebars";
 
 connectMongoDB();
 
