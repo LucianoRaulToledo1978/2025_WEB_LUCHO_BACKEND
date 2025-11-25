@@ -14,16 +14,15 @@ connectMongoDB();
 
 const app = express();
 
-// --- CORS CORRECTO ---
+// --- CORS CONFIG CORRECTA ---
 app.use(cors({
-    origin: [
-        "http://localhost:5173",
-        "https://tu-frontend.vercel.app",
-        "https://two025-web-lucho-frontend.vercel.app"  // agregá frontend real acá
-    ],
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true
+  origin: [
+    "http://localhost:5173",
+    "https://2025-web-lucho-front.vercel.app"
+  ],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
 }));
 
 app.use(express.json());
@@ -50,6 +49,6 @@ app.use('/api/workspace', workspace_router);
 app.use('/api/member', member_router);
 app.use('/api/chat', chat_router);
 
-// --- UN SOLO app.listen ---
+// --- SOLO UN LISTEN ---
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log("Server on port " + PORT));
