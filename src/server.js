@@ -1,7 +1,8 @@
 import ENVIRONMENT from "./environment.config.js";
 import connectMongoDB from "./mongoDB.config.js";
 
-import workspace_router from "./workspace.route.js";
+import workspace_router from "./workspace.router.js";
+
 import auth_router from "./auth.router.js";
 import member_router from "./member.router.js";
 import chat_router from "./chat.router.js";
@@ -25,7 +26,7 @@ app.use(cors({
   credentials: true
 }));
 
-
+app.options("*", cors()); 
 
 app.use(express.json());
 
