@@ -1,15 +1,15 @@
-import ENVIRONMENT from "./src/environment.config.js";
-import connectMongoDB from "./src/mongoDB.config.js";
-
-import workspace_router from "./src/workspace.router.js";
-
-import auth_router from "./src/auth.router.js";
-import member_router from "./src/member.router.js";
-import chat_router from "./src/chat.router.js";
-
 import express from "express";
 import cors from "cors";
 import handlebars from "express-handlebars";
+
+import ENVIRONMENT from "./src/environment.config.js";
+import connectMongoDB from "./src/mongoDB.config.js";
+
+// RUTAS (según tus archivos REALES)
+import auth_router from "./src/auth.router.js";
+import workspace_router from "./src/workspace.route.js";
+import member_router from "./src/member.router.js";
+import chat_router from "./src/chat.router.js";
 
 connectMongoDB();
 
@@ -26,7 +26,8 @@ app.use(cors({
   credentials: true
 }));
 
-app.options("*", cors()); 
+// Para que OPTIONS / preflight funcione
+app.options("*", cors());
 
 app.use(express.json());
 
