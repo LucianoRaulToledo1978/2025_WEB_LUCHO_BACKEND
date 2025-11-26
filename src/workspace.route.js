@@ -1,41 +1,27 @@
-import WorkspacesRepository from "./workspace.repository.js";
 import express from "express";
 import authMiddleware from "./auth.middleware.js";
 import WorkspaceController from "./workspace.controller.js";
 import workspaceMiddleware from "./workspace.middleware.js";
 
+const workspace_router = express.Router();
 
+// Todas las rutas requieren autenticación
+workspace_router.use(authMiddleware);
 
+// Obtener todos los workspaces
+workspace_router.get("/", WorkspaceController.getAll);
 
+// Obtener un workspace por ID
+workspace_router.get("/:workspace_id", WorkspaceController.getById);
 
-//Manejar consultas referidas a workspace
-
-const workspace_router = express.Router()
-
-//Configuracion a nivel de ruta
-workspace_router.use(authMiddleware)
-
-
-
-workspace_router.get('/', WorkspaceController.getAll )
-
-// workspace_router.get('/:workspace_id', /* authByRoleMiddleware(['admin']), */  WorkspaceController.getById )
-
+// Invitar usuario (solo admin)
 workspace_router.post(
-    '/:workspace_id/invite', 
-    workspaceMiddleware(['admin']),
+    "/:workspace_id/invite",
+    workspaceMiddleware(["admin"]),
     WorkspaceController.inviteMember
-)
+);
 
+// Crear un nuevo workspace
+workspace_router.post("/", WorkspaceController.post);
 
-workspace_router.get('/:workspace_id', WorkspaceController.getById )
-
-//Crear el WorkspaceController con los metodos .post, .getById, getAll
-
-//Este es el endpoint para crear workspaces
-workspace_router.post('/', WorkspaceController.post)
-
-
-
-
-export default workspace_router
+export default workspace_router;
