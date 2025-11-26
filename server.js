@@ -1,11 +1,11 @@
-import ENVIRONMENT from "./environment.config.js";
-import connectMongoDB from "./mongoDB.config.js";
+import ENVIRONMENT from "./src/environment.config.js";
+import connectMongoDB from "./src/mongoDB.config.js";
 
-import workspace_router from "./workspace.router.js";
+import workspace_router from "./src/workspace.router.js";
 
-import auth_router from "./auth.router.js";
-import member_router from "./member.router.js";
-import chat_router from "./chat.router.js";
+import auth_router from "./src/auth.router.js";
+import member_router from "./src/member.router.js";
+import chat_router from "./src/chat.router.js";
 
 import express from "express";
 import cors from "cors";
